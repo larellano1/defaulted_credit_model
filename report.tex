@@ -1,0 +1,60 @@
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+% Page layout
+\geometry{margin=1in}
+
+% Document
+\begin{document}
+
+% Title Page
+\title{Defaulted Credit Model Report}
+\author{Dr. Luis Felipe Vidal Arellano}
+\date{\today}
+\maketitle
+
+% Abstract
+\begin{abstract}
+This report provides an analysis of the defaulted credit model, including methodology, results, and conclusions.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% Sections
+\section{Descrição do problema}
+A dívida ativa representa o conjunto de créditos tributários e não tributários definitivamente constituídos e não pagos pelos contribuintes, cuja inscrição formal permite ao ente público iniciar os procedimentos de cobrança administrativa ou judicial. Em um contexto municipal, essa dívida constitui não apenas um direito a ser exercido pela Fazenda Pública, mas também um ativo patrimonial de relevância estratégica para o financiamento de políticas públicas. No entanto, o volume crescente de créditos inscritos contrasta com a baixa taxa de recuperação efetiva observada, revelando uma desconexão entre a dimensão jurídica da dívida e sua viabilidade econômica.
+
+Diversos fatores explicam essa baixa recuperabilidade. Grande parte da carteira é composta por créditos antigos, com débitos de pequeno valor e devedores que frequentemente são pessoas físicas de baixa renda ou empresas inativas. O processo de cobrança, sobretudo quando judicializado, tende a ser moroso e oneroso, gerando custos que muitas vezes superam os valores efetivamente recuperados. Além disso, a ausência de informações estruturadas sobre o perfil dos devedores, bem como a dificuldade de integração entre os sistemas administrativos, financeiros e judiciais, compromete a capacidade do gestor público de avaliar o risco de inadimplemento e de formular estratégias diferenciadas de cobrança.
+
+Tradicionalmente, os entes públicos têm adotado critérios genéricos e pouco analíticos para a gestão da dívida ativa, baseando-se em valores nominais, ordem cronológica de inscrição ou fase processual para decidir sobre o ajuizamento de execuções fiscais ou a adoção de medidas de cobrança. Essa prática, embora administrativamente simples, ignora a profunda heterogeneidade da carteira e negligencia fatores que afetam diretamente a probabilidade de recuperação, como a situação econômica do devedor, a existência de garantias, a natureza do crédito e o tempo de inadimplência.
+
+A ausência de modelos quantitativos para estimar a recuperabilidade dos créditos inscritos gera consequências práticas relevantes. Em primeiro lugar, impede que a administração pública dimensione corretamente o valor econômico de seus ativos, dificultando a avaliação de riscos fiscais e a elaboração de projeções de receita mais realistas. Em segundo lugar, compromete a eficiência na alocação de recursos humanos e financeiros dedicados à cobrança. Por fim, dificulta a utilização da dívida ativa como instrumento de política pública, seja por meio de programas de regularização fiscal, seja por operações de cessão ou securitização de créditos.
+
+Nesse cenário, justifica-se o desenvolvimento de um modelo estatístico capaz de estimar, para cada crédito individualmente, a probabilidade de recuperação e o valor esperado a ser recuperado. A proposta parte do reconhecimento de que a dívida ativa, apesar de seu caráter jurídico indiscutível, possui natureza econômica incerta e heterogênea. Assim, a construção de um modelo preditivo permite que a gestão da cobrança se oriente por critérios de risco e retorno, aproximando-se das práticas utilizadas no setor privado para avaliação de carteiras de crédito.
+
+O presente trabalho apresenta um modelo integrado de estimativa de recuperabilidade da dívida ativa, que utiliza técnicas de regressão logística, regressão linear, modelos de sobrevivência e simulações de Monte Carlo para produzir estimativas probabilísticas individualizadas de recuperação. Inicialmente desenvolvido com base em dados simulados, o modelo foi concebido para aplicação prática em contextos reais, sendo compatível com as bases de dados e a estrutura administrativa disponíveis em grande parte dos municípios brasileiros. 
+
+\section{Methodology}
+Describe the methods and models used in the analysis.
+
+\section{Results}
+Present the findings of the analysis.
+
+\section{Conclusion}
+Summarize the key takeaways and potential future work.
+
+% References
+\newpage
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
