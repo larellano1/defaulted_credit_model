@@ -43,8 +43,33 @@ Nesse cenário, justifica-se o desenvolvimento de um modelo estatístico capaz d
 
 O presente trabalho apresenta um modelo integrado de estimativa de recuperabilidade da dívida ativa, que utiliza técnicas de regressão logística, regressão linear, modelos de sobrevivência e simulações de Monte Carlo para produzir estimativas probabilísticas individualizadas de recuperação. Inicialmente desenvolvido com base em dados simulados, o modelo foi concebido para aplicação prática em contextos reais, sendo compatível com as bases de dados e a estrutura administrativa disponíveis em grande parte dos municípios brasileiros. 
 
-\section{Methodology}
-Describe the methods and models used in the analysis.
+\section{Geração dos Dados Históricos e Estrutura da Base de Simulação}
+
+A construção do modelo de estimativa da recuperabilidade da dívida ativa partiu, em sua fase inicial, da elaboração de uma base de dados simulada. Essa estratégia metodológica foi adotada com o propósito de validar a estrutura conceitual e estatística do modelo em ambiente controlado, no qual as relações entre variáveis podem ser especificadas de forma precisa e testadas com rigor. A ausência de dados públicos suficientemente detalhados e estruturados, sobretudo no que diz respeito a atributos dos devedores e informações consolidadas sobre recuperação efetiva, tornou necessária a adoção de uma base sintética, concebida para refletir com verossimilhança os padrões observados nas administrações tributárias municipais.
+
+A base simulada foi composta por dois mil registros, cada um representando um crédito individual inscrito em dívida ativa. Esses créditos foram divididos em dois grupos conforme o estágio da cobrança: um grupo composto por 1.200 créditos em fase amigável e outro por 800 créditos já ajuizados. A separação por estágio permite distinguir a dinâmica de recuperação nos dois momentos processuais, uma vez que a probabilidade de êxito e o comportamento dos devedores variam substancialmente conforme a antiguidade da dívida, a presença ou não de medidas constritivas e o grau de deterioração do crédito.
+
+Para cada crédito, foram atribuídas variáveis representativas de seus atributos econômicos e jurídicos relevantes. A primeira delas é o escore de risco do devedor, denominado Credit_Score, simulado como uma variável contínua com distribuição normal. No grupo de cobrança amigável, essa variável foi gerada com média 450 e desvio padrão 50, enquanto no grupo judicial os mesmos parâmetros foram deslocados para uma média inferior (400), mantendo o mesmo desvio, refletindo a suposição de que os créditos ajuizados concentram devedores de maior risco.
+
+Outra variável essencial é a idade da inadimplência, representada por Delinquency_Age, que corresponde ao tempo decorrido, em meses, entre o vencimento da obrigação e o momento de análise. Optou-se por uma distribuição uniforme nesse caso, variando entre 6 e 18 meses na fase amigável, e entre 12 e 24 meses na fase judicial, o que reproduz o atraso adicional necessário para o ajuizamento de execuções fiscais.
+
+A variável LTV, ou razão entre o valor do crédito e o valor das garantias disponíveis (Loan-to-Value), foi construída com base em uma distribuição assimétrica, com predominância de valores próximos a 1 ou superiores, refletindo a realidade dos créditos públicos, que em sua maioria não contam com garantias reais específicas. Essa variável foi tratada como contínua e adimensional, podendo ser utilizada tanto como proxy da fragilidade do crédito quanto como instrumento para segmentação da carteira.
+
+Com base nessas variáveis explicativas, foi construída uma variável latente de propensão à recuperação, por meio de uma função logística da forma:
+
+
+ 
+Os parâmetros dessa função foram calibrados de modo a produzir taxas médias de recuperação de aproximadamente 40% para os créditos amigáveis e 15% para os judiciais, em consonância com as estimativas comumente observadas em estudos empíricos no Brasil. A realização de sorteios binários com base nessa probabilidade gerou a variável observada Recovered.
+
+Nos casos em que o crédito foi considerado recuperado (i.e., quando Recovered = 1), foi atribuído um valor recuperado efetivo por meio de uma função proporcional ao valor original do crédito, ponderado por variáveis de risco. Embora o valor de face não tenha sido explicitado no modelo, admite-se implicitamente que ele se encontra normalizado e que o valor recuperado pode ser expresso como:
+
+onde 
+
+V é o valor do crédito (tomado como unidade de referência) e r é uma taxa de recuperação simulada a partir de distribuições condicionalmente parametrizadas para cada grupo.
+
+Essa base simulada fornece o substrato necessário para a estimação dos modelos estatísticos utilizados nas etapas seguintes, permitindo a aplicação de regressões logísticas para a probabilidade de recuperação, de regressões lineares para variáveis latentes e da modelagem paramétrica da taxa de recuperação via distribuição Beta. Além disso, a simulação facilita a realização de testes de Monte Carlo e análises de sensibilidade, fundamentais para validar a coerência interna do modelo e verificar sua resposta frente a variações de parâmetros.
+
+Embora se trate de uma base fictícia, a estrutura de variáveis adotada busca refletir, com razoável fidelidade, os dados que podem ser coletados nos sistemas administrativos dos entes públicos, o que será discutido na próxima seção. A criação desse ambiente simulado, portanto, não tem apenas finalidade ilustrativa, mas constitui uma etapa metodologicamente indispensável para o amadurecimento e a futura aplicação empírica do modelo em contextos institucionais reais.
 
 \section{Results}
 Present the findings of the analysis.
