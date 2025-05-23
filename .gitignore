@@ -1,0 +1,3 @@
+#Ignore all files iniated by paper_tesouro, except paper_tesouro.tex
+paper_tesouro*
+!paper_tesouro.tex
