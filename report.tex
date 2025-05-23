@@ -8,6 +8,8 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage[alf]{abntex2cite}  % para citações ABNT
+
 
 % Page layout
 \geometry{margin=1in}
@@ -16,15 +18,16 @@
 \begin{document}
 
 % Title Page
-\title{Defaulted Credit Model Report}
+\title{Recuperabilidade da Dívida Ativa: Integração de Modelos Logísticos, Paramétricos e Estocásticos para Apoio à Decisão Pública}
 \author{Dr. Luis Felipe Vidal Arellano}
 \date{\today}
 \maketitle
 
-% Abstract
 \begin{abstract}
-This report provides an analysis of the defaulted credit model, including methodology, results, and conclusions.
+Este relatório apresenta o desenvolvimento de um modelo estatístico para estimar a recuperabilidade da dívida ativa no contexto de administrações públicas municipais. A proposta integra regressão logística para a estimação da probabilidade de recuperação, modelos paramétricos baseados em distribuição Beta para a taxa recuperável condicional e um modelo de sobrevivência do tipo Weibull para análise do tempo até a recuperação. A partir dessas estimativas, são conduzidas simulações de Monte Carlo para gerar distribuições empíricas do valor recuperável de cada crédito, permitindo análises individualizadas e agregadas da carteira. A viabilidade de aplicação do modelo com dados reais é discutida, com base na estrutura típica dos sistemas administrativos dos entes públicos. Adicionalmente, o relatório apresenta uma análise de sensibilidade dos parâmetros-chave e discute os caminhos institucionais para adoção do modelo como ferramenta de apoio à gestão fiscal, contabilização patrimonial e planejamento de estratégias de cobrança.
 \end{abstract}
+
+\noindent\textbf{Palavras-chave:} dívida ativa; recuperabilidade; regressão logística; modelos de sobrevivência; Monte Carlo; administração tributária.
 
 \tableofcontents
 \newpage
@@ -58,7 +61,7 @@ A variável LTV, ou razão entre o valor do crédito e o valor das garantias dis
 Com base nessas variáveis explicativas, foi construída uma variável latente de propensão à recuperação, por meio de uma função logística da forma:
 
 \[
-\Pr(\text{Recovered} = 1 \mid \mathbf{X}) = \frac{1}{1 + \exp\left(-(\beta_0 + \beta_1 \cdot \text{Credit\_Score} + \beta_2 \cdot \text{Delinquency\_Age} + \beta_3 \cdot \text{LTV})\right)}
+\Pr(\text{Recovered} = 1 \mid \mathbf{X}) = \frac{1}{1 + \exp(-(\beta_0 + \beta_1 \cdot \text{Credit\_Score} + \beta_2 \cdot \text{Delinquency\_Age} + \beta_3 \cdot \text{LTV}))}
 \]
  
 Os parâmetros dessa função foram calibrados de modo a produzir taxas médias de recuperação de aproximadamente 40% para os créditos amigáveis e 15% para os judiciais, em consonância com as estimativas comumente observadas em estudos empíricos no Brasil. A realização de sorteios binários com base nessa probabilidade gerou a variável observada Recovered.
@@ -95,6 +98,7 @@ Portanto, ainda que algumas das variáveis utilizadas na simulação exijam trat
 
 O modelo pode, inclusive, ser modularizado para ser aplicado mesmo em contextos com limitações de dados. Em municípios com dados menos estruturados, é possível iniciar com a modelagem da probabilidade de recuperação com base em variáveis mais simples, como estágio e tempo de inadimplência. À medida que a base de dados se torna mais rica, outras dimensões – como escore de risco e proxies de garantias – podem ser incorporadas, aprimorando gradualmente a acurácia das estimativas.
 
+
 \section{Modelagem Estatística da Recuperabilidade} 
 O modelo proposto para estimar a recuperabilidade da dívida ativa fundamenta-se na premissa de que a probabilidade de recuperação de um crédito público, bem como o valor que pode efetivamente ser recuperado, são funções das características observáveis do crédito e de seu devedor. Tais características, por sua vez, se distribuem de forma heterogênea na carteira, exigindo uma modelagem estatística que seja simultaneamente flexível, interpretável e capaz de lidar com incertezas inerentes ao processo de cobrança.
 
@@ -123,7 +127,8 @@ Essas três camadas de modelagem convergem, por fim, na construção de um simul
 
 $\hat{p}_{i}$ para determinar se o crédito será ou não recuperado; em caso positivo, sorteia-se uma taxa $r_i \sim \text{Beta}(\alpha_i, \beta_i)$, que é então aplicada ao valor de face do crédito.
 
-O valor esperado recuperável de um crédito, assim como sua distribuição de risco, resulta da combinação dessas variáveis aleatórias, permitindo a construção de indicadores agregados como o valor total esperado da carteira, o intervalo de confiança da recuperação e o valor em risco (VaR) da inadimplência. A estrutura modular do modelo permite ainda a realização de análises de sensibilidade, conforme será discutido nas seções seguintes, bem como sua adaptação progressiva a novos dados à medida que a administração pública amplia sua base informacional.
+O valor esperado recuperável de um crédito, assim como sua distribuição de risco, resulta da combinação dessas variáveis aleatórias, permitindo a construção de indicadores agregados como o valor total esperado da carteira, o intervalo de confiança da recuperação e o valor em risco (VaR) da inadimplência \cite{bolder2018credit}. A estrutura modular do modelo permite ainda a realização de análises de sensibilidade, conforme será discutido nas seções seguintes, bem como sua adaptação progressiva a novos dados à medida que a administração pública amplia sua base informacional.
+
 
 \section{Aplicação do Modelo a Créditos e Carteiras}
 Uma vez calibrado, o modelo torna-se operacionalmente aplicável à avaliação da recuperabilidade tanto de créditos individuais quanto de carteiras agregadas. A lógica subjacente é probabilística e condicional: cada crédito é tratado como uma unidade autônoma, cujas chances de recuperação, taxa esperada e tempo até o evento são estimados a partir de suas características observadas. A partir dessas estimativas, simulam-se cenários futuros de recuperação, que podem ser interpretados em termos de valor esperado, risco associado e variação condicional sob diferentes hipóteses.
@@ -198,7 +203,6 @@ Ao apresentar um modelo que trata a dívida ativa como um ativo econômico sujei
 
 % References
 \newpage
-\bibliographystyle{plain}
 \bibliographystyle{abntex2-alf}
 \bibliography{recuperabilidade_referencias}
 \end{document}
