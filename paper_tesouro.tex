@@ -1,0 +1,73 @@
+\documentclass[a4paper,12pt]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[alf]{abntex2cite}  % para citações ABNT
+
+
+% Page layout
+\geometry{margin=1in}
+
+% Document
+\begin{document}
+
+% Title Page
+\title{Recuperabilidade da dívida ativa: integração de modelos logísticos, paramétricos e estocásticos para apoio à decisão pública}
+\author{Dr. Luis Felipe Vidal Arellano}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+To Do
+\end{abstract}
+
+\noindent\textbf{Palavras-chave:} dívida ativa; regressão logística; Monte Carlo; IPSAS 29.
+
+\tableofcontents
+\newpage
+
+% Sections
+\section{Introdução}
+
+A dívida ativa representa o conjunto de créditos públicos definitivamente constituídos e não pagos pelos contribuintes, abrangendo tanto débitos tributários quanto não tributários. Sua inscrição formal autoriza o ente público a iniciar medidas de cobrança administrativa ou judicial, configurando-se como um ativo patrimonial relevante no contexto das finanças públicas municipais. Apesar de sua importância econômica e fiscal, a efetiva recuperação desses créditos tem se mostrado limitada, evidenciando uma discrepância entre o valor registrado contabilmente e o valor realizável desses ativos.
+
+Essa baixa recuperabilidade está associada a múltiplos fatores, como a antiguidade dos créditos, a predominância de débitos de pequeno valor, a condição econômica dos devedores e a ineficiência dos processos de cobrança judicial. Em muitos casos, os custos associados à cobrança superam os valores efetivamente recuperados, comprometendo a eficiência arrecadatória. Além disso, a ausência de mecanismos analíticos para a segmentação da carteira e a avaliação do risco de inadimplemento dificulta a priorização de estratégias de cobrança mais eficazes.
+
+Historicamente, a gestão da dívida ativa tem se baseado em critérios formais — como a ordem cronológica de inscrição ou a fase processual — que não consideram a heterogeneidade da carteira nem os fatores determinantes da inadimplência. Essa abordagem compromete tanto a acurácia das projeções de receita quanto a racionalidade na alocação de recursos administrativos e jurídicos.
+
+Neste contexto, o presente artigo propõe um modelo estatístico integrado para estimar a \textit{recuperabilidade} da dívida ativa, isto é, a probabilidade e o valor esperado de recuperação de cada crédito inscrito. O modelo combina técnicas de regressão logística, distribuição Beta e análise de sobrevivência, complementadas por simulações de Monte Carlo, com o objetivo de oferecer ao gestor público uma ferramenta de apoio à decisão orientada por risco. A proposta busca contribuir para uma abordagem mais realista e eficiente da gestão da dívida ativa, em conformidade com as melhores práticas de contabilidade patrimonial e planejamento fiscal baseado em evidências.
+
+A estrutura do artigo compreende, além desta introdução, uma fundamentação teórica sobre modelos de risco aplicáveis à dívida ativa, a descrição da metodologia adotada, os resultados obtidos a partir da aplicação do modelo, a análise de sensibilidade dos parâmetros e, por fim, a discussão sobre os caminhos para sua implementação institucional.
+
+
+\section{Fundamentação Teórica}
+
+A dívida ativa, composta por créditos públicos tributários e não tributários definitivamente constituídos e não pagos, representa um ativo patrimonial de relevante valor contábil e fiscal. A incerteza quanto à sua realização financeira — isto é, sua recuperabilidade efetiva — desafia os gestores públicos, que precisam mensurar e gerir adequadamente esses ativos para fins de planejamento, cobrança e transparência contábil.
+
+Diferente de créditos comerciais no setor privado, os créditos inscritos em dívida ativa apresentam peculiaridades importantes: possuem presunção de legalidade, mas não necessariamente liquidez ou garantias associadas. O seu tratamento como ativo contábil requer não apenas registros formais, mas também estimativas realistas sobre a probabilidade de recuperação e o valor esperadamente realizável, em conformidade com normas como a IPSAS 29 e a NBCT-SP 10.
+
+Nesse contexto, estudos como o de \cite{bonfim2024} destacam que a inadimplência fiscal recorrente e a falta de estratégias ativas de cobrança comprometem o valor econômico efetivo desses créditos, prejudicando o planejamento fiscal municipal.
+
+A gestão moderna da dívida ativa requer a incorporação de modelos quantitativos capazes de estimar a probabilidade de recuperação de cada crédito. Modelos de regressão logística são amplamente utilizados nesse contexto, por permitirem estimar, com base em características observáveis (como tempo de inadimplência, valor da dívida e perfil do devedor), a chance de um crédito ser quitado. Sua aplicação já foi comprovada em cenários de crédito rotativo e cobrança bancária, com resultados robustos \cite{holck2019}.
+
+Complementarmente, modelos de sobrevivência, como o modelo Weibull com estrutura AFT (Accelerated Failure Time), permitem estimar o tempo até a recuperação de créditos — dimensão crucial para avaliar o valor presente líquido dos recebíveis públicos e orientar decisões sobre ajuizamento ou desistência da cobrança.
+
+Além da probabilidade de recuperação, a fração recuperável do crédito também é incerta. Por tratar-se de uma variável contínua limitada ao intervalo $[0,1]$, a distribuição Beta tem sido apontada como uma escolha apropriada para representar a taxa de recuperação em modelos aplicados à cobrança de dívidas inadimplidas \cite{kovalenko2021}.
+
+A combinação dessas estimativas com simulações de Monte Carlo permite a geração de distribuições empíricas de valor recuperável, contemplando a aleatoriedade da recuperação e fornecendo métricas como valor esperado, intervalo de confiança e valor em risco (VaR). Essa abordagem tem sido recomendada para avaliação de riscos em portfólios de crédito sujeitos a incertezas estruturais \cite{zogovic2018}.
+
+Ao adotar uma abordagem baseada em risco para mensurar a dívida ativa, os gestores públicos alinham-se às melhores práticas internacionais em contabilidade patrimonial, ao mesmo tempo em que adquirem ferramentas para priorizar estratégias de cobrança com base em retorno ajustado ao risco. A aplicação desses modelos possibilita a constituição de provisões técnicas para perdas e a definição de estratégias segmentadas por perfil de devedor, aumentando a eficiência arrecadatória.
+
+
+
+% References
+\newpage
+\bibliographystyle{abntex2-alf}
+\bibliography{recuperabilidade_referencias}
+\end{document}
