@@ -18,7 +18,7 @@
 \begin{document}
 
 % Title Page
-\title{Recuperabilidade da Dívida Ativa: Integração de Modelos Logísticos, Paramétricos e Estocásticos para Apoio à Decisão Pública}
+\title{Recuperabilidade da dívida ativa: integração de modelos logísticos, paramétricos e estocásticos para apoio à decisão pública}
 \author{Dr. Luis Felipe Vidal Arellano}
 \date{\today}
 \maketitle
@@ -64,7 +64,7 @@ Com base nessas variáveis explicativas, foi construída uma variável latente d
 \Pr(\text{Recovered} = 1 \mid \mathbf{X}) = \frac{1}{1 + \exp(-(\beta_0 + \beta_1 \cdot \text{Credit\_Score} + \beta_2 \cdot \text{Delinquency\_Age} + \beta_3 \cdot \text{LTV}))}
 \]
  
-Os parâmetros dessa função foram calibrados de modo a produzir taxas médias de recuperação de aproximadamente 40% para os créditos amigáveis e 15% para os judiciais, em consonância com as estimativas comumente observadas em estudos empíricos no Brasil. A realização de sorteios binários com base nessa probabilidade gerou a variável observada Recovered.
+Os parâmetros dessa função foram calibrados de modo a produzir taxas médias de recuperação de aproximadamente 40\% para os créditos amigáveis e 15\% para os judiciais, em consonância com as estimativas comumente observadas em estudos empíricos no Brasil. A realização de sorteios binários com base nessa probabilidade gerou a variável observada Recovered.
 
 Nos casos em que o crédito foi considerado recuperado (i.e., quando Recovered = 1), foi atribuído um valor recuperado efetivo por meio de uma função proporcional ao valor original do crédito, ponderado por variáveis de risco. Embora o valor de face não tenha sido explicitado no modelo, admite-se implicitamente que ele se encontra normalizado e que o valor recuperado pode ser expresso como:
 
@@ -86,7 +86,7 @@ A variável $Delinquency\_Age$, que expressa a idade da inadimplência, é talve
 A variável Stage, que indica o estágio da cobrança, também é normalmente registrada de forma explícita nos bancos de dados. Sistemas de controle da dívida ativa e da execução fiscal geralmente mantêm uma codificação do status de cada débito, distinguindo entre créditos em cobrança amigável, ajuizados, parcelados, protestados ou suspensos. A categorização adotada no modelo pode, assim, ser diretamente extraída ou facilmente construída a partir dessas informações, permitindo a segmentação da carteira conforme o momento processual em que se encontra cada crédito.
 
 Já a variável Recovered, que assinala se houve ou não recuperação do crédito, requer um critério normativo para sua definição. Embora os sistemas de arrecadação registrem os pagamentos efetuados, é necessário estabelecer uma convenção quanto ao que será considerado “recuperação”: se o pagamento integral do débito, o recebimento de determinado percentual do valor original, a adesão a parcelamento com adimplemento regular ou outro marco específico. Uma vez fixado esse critério, é possível, mediante cruzamento entre a base da dívida ativa e os registros de arrecadação, construir a variável binária observada 
-$Recovered \in {0,1}$.
+$Recovered \in \{0,1\}$.
 
 A variável $Recovery\_Amount$, por sua vez, depende do mesmo processo de vinculação entre débito e pagamento. Em sistemas nos quais os pagamentos são vinculados individualmente a cada débito, o valor efetivamente recuperado pode ser obtido com exatidão. Quando há consolidação de débitos, como nos parcelamentos, será necessário aplicar critérios de rateio proporcional para estimar o valor pago em relação a cada inscrição. Ainda que essa alocação não seja trivial, ela é viável tecnicamente e, na prática, já é realizada por sistemas que geram os relatórios de controle de arrecadação.
 
@@ -99,7 +99,7 @@ Portanto, ainda que algumas das variáveis utilizadas na simulação exijam trat
 O modelo pode, inclusive, ser modularizado para ser aplicado mesmo em contextos com limitações de dados. Em municípios com dados menos estruturados, é possível iniciar com a modelagem da probabilidade de recuperação com base em variáveis mais simples, como estágio e tempo de inadimplência. À medida que a base de dados se torna mais rica, outras dimensões – como escore de risco e proxies de garantias – podem ser incorporadas, aprimorando gradualmente a acurácia das estimativas.
 
 
-\section{Modelagem Estatística da Recuperabilidade} 
+\section{Modelagem estatística da recuperabilidade} 
 O modelo proposto para estimar a recuperabilidade da dívida ativa fundamenta-se na premissa de que a probabilidade de recuperação de um crédito público, bem como o valor que pode efetivamente ser recuperado, são funções das características observáveis do crédito e de seu devedor. Tais características, por sua vez, se distribuem de forma heterogênea na carteira, exigindo uma modelagem estatística que seja simultaneamente flexível, interpretável e capaz de lidar com incertezas inerentes ao processo de cobrança.
 
 A modelagem foi estruturada em três camadas analíticas complementares. A primeira camada busca estimar, para cada crédito, a probabilidade de que ele seja recuperado, a partir de uma regressão logística. A segunda camada, condicional ao evento de recuperação, modela a taxa esperada de recuperação utilizando distribuições paramétricas do tipo Beta, calibradas com base em estimativas empíricas de média e dispersão. A terceira camada incorpora a dimensão temporal do processo de recuperação, por meio de modelos de sobrevivência, que permitem estimar o tempo esperado até a recuperação e identificar fatores que aceleram ou retardam esse processo.
@@ -130,7 +130,7 @@ $\hat{p}_{i}$ para determinar se o crédito será ou não recuperado; em caso po
 O valor esperado recuperável de um crédito, assim como sua distribuição de risco, resulta da combinação dessas variáveis aleatórias, permitindo a construção de indicadores agregados como o valor total esperado da carteira, o intervalo de confiança da recuperação e o valor em risco (VaR) da inadimplência \cite{bolder2018credit}. A estrutura modular do modelo permite ainda a realização de análises de sensibilidade, conforme será discutido nas seções seguintes, bem como sua adaptação progressiva a novos dados à medida que a administração pública amplia sua base informacional.
 
 
-\section{Aplicação do Modelo a Créditos e Carteiras}
+\section{Aplicação do modelo a créditos e carteiras}
 Uma vez calibrado, o modelo torna-se operacionalmente aplicável à avaliação da recuperabilidade tanto de créditos individuais quanto de carteiras agregadas. A lógica subjacente é probabilística e condicional: cada crédito é tratado como uma unidade autônoma, cujas chances de recuperação, taxa esperada e tempo até o evento são estimados a partir de suas características observadas. A partir dessas estimativas, simulam-se cenários futuros de recuperação, que podem ser interpretados em termos de valor esperado, risco associado e variação condicional sob diferentes hipóteses.
 
 No nível individual, a aplicação do modelo começa com a coleta das variáveis explicativas relevantes para o crédito considerado, a saber, o escore de risco do devedor, a idade da inadimplência, a razão entre o valor do crédito e a eventual garantia (LTV), e o estágio processual em que se encontra. Essas informações alimentam a função logística previamente estimada, da qual se extrai a probabilidade 
@@ -164,7 +164,7 @@ $\hat{p}_{i}, \mu_{i}$ ou $\sigma_{i}$, pode-se projetar, por exemplo, os efeito
 
 Por fim, o modelo gera insumos valiosos para o registro contábil e patrimonial da dívida ativa. A estimativa do valor recuperável, com base em premissas estatisticamente justificadas, pode ser utilizada como base para o reconhecimento de provisões para perdas em créditos a receber, em consonância com as normas internacionais de contabilidade aplicadas ao setor público (como a IPSAS 29) e com os princípios da contabilidade patrimonial previstos nas normas brasileiras.
 
-\section{Análise de Sensibilidade e Robustez do Modelo}
+\section{Análise de sensibilidade e robustez do modelo}
 Uma característica fundamental de qualquer modelo preditivo aplicado à gestão de créditos públicos é sua capacidade de manter estabilidade nas estimativas quando submetido a pequenas variações em seus parâmetros de entrada. No caso da dívida ativa, essa exigência é ainda mais premente, dado que tanto a qualidade dos dados disponíveis quanto a estrutura institucional dos entes federados pode variar significativamente, tornando indispensável que o modelo seja robusto a incertezas e adaptável a diferentes contextos operacionais. Nesse sentido, a análise de sensibilidade constitui um dos pilares da validação metodológica da proposta aqui apresentada.
 
 A sensibilidade do modelo foi avaliada por meio da criação de cenários contrafactuais, nos quais parâmetros-chave foram alterados de forma controlada, permitindo observar os efeitos dessas variações sobre os resultados agregados e individuais. Os principais parâmetros analisados foram: a probabilidade de recuperação 
@@ -184,7 +184,7 @@ Importa destacar que a estrutura modular do modelo permite que essas análises s
 
 A análise de sensibilidade, portanto, não apenas fortalece a confiabilidade do modelo, ao demonstrar sua estabilidade sob perturbações parametrizadas, mas também amplia seu valor como ferramenta de apoio à decisão estratégica. Ao permitir a simulação prospectiva de cenários administrativos e econômicos, o modelo deixa de ser um mero instrumento de mensuração e assume o papel de mecanismo de planejamento fiscal orientado por evidência.
 
-\section{Caminhos para a Aplicação Institucional do Modelo}
+\section{Caminhos para a aplicação institucional do modelo}
 A mensuração da recuperabilidade da dívida ativa, embora juridicamente recente na agenda da administração pública brasileira, constitui uma necessidade técnica inescapável para qualquer ente federado que pretenda gerir com eficiência seus ativos patrimoniais e seu risco fiscal. O modelo aqui desenvolvido oferece uma estrutura analítica consistente para enfrentar esse desafio, combinando técnicas estatísticas clássicas, modelagem estocástica e simulação computacional, em um arcabouço suficientemente robusto para lidar com a heterogeneidade da carteira e suficientemente flexível para ser adaptado à realidade informacional de cada município.
 
 A proposta metodológica parte do reconhecimento de que a dívida ativa não deve ser tratada como um estoque homogêneo e juridicamente garantido, mas sim como um conjunto de créditos de qualidade variável, cujo valor econômico depende da probabilidade de recuperação, do tempo necessário para obtê-la e das condições associadas ao devedor. A modelagem da recuperabilidade, nesse sentido, opera em três dimensões: a primeira diz respeito à estimativa da chance de recuperação de cada crédito, a segunda à quantificação da fração potencialmente recuperável e a terceira à incorporação da variável temporal, cuja relevância é evidente tanto para fins de avaliação patrimonial quanto de decisão administrativa.
